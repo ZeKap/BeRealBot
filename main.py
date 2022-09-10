@@ -6,7 +6,7 @@ from random import randrange
 import time
 
 # vars for prog
-debug = True
+debug = False
 maxTweets = 5
 minTweets = 1
 moments = []
@@ -21,9 +21,10 @@ def connect_api():
 
     try:    # try to connect and exit in case of error
         api.verify_credentials()
-        print("Tweepy credentials are ok")
+        if(debug): print("Tweepy credentials are ok")
     except:
         print("Error in tweepy")
+        exit(2)
 
 # generate a random moment in day
 def random_moment() -> str:
@@ -53,10 +54,10 @@ def make_a_tweet():
 # generate a random number of jobs
 def create_moments():
     if(debug): print("clearing jobs")
-    moments.clear()
+    moments.clear()                             # remove every entry in the list
     for _ in range(nb_tweets()):
-        moments.append(random_moment())
-    print(moments)
+        moments.append(random_moment())         # add a random moment to the list
+    if(debug): print(moments)
 
 if(__name__ == "__main__"):
     connect_api()                               # connect to tweepy API
