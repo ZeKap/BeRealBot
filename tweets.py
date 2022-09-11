@@ -1,8 +1,12 @@
 tweetsList =[
-    "NotBeReal: ⏳ Time to post a photo of what you're doing!",
-    "NotBeReal: ⏰ Quick! Show us what you're doing!",
-    "NotBeReal: 😉 You know what time it is!",
-    "NotBeReal: 📷 You can tell what you're doing, but take a picture of it is better",
-    "NotBeReal: 😈 What do you mean it's not time to post? We don't care share it!",
-    "NotBeReal: 😱 You'll never guess what your friends are doing! (what clickbait?)"
+    "test"
+]
+
+banned = [
+    "NotBeReal: ⏳ Partage vite ton moment de la journée, on sait jamais si c'est ton moment de gloire !",
+    "NotBeReal: ⏰ C'est l'heure de partager ton moment de la journée",
+    "NotBeReal: 😉 Tu sais quelle heure il est partage nous ce moment",
+    "NotBeReal: 📷 Tu pourrais nous dire ce que tu fais, mais c'est mieux de le montrer",
+    "NotBeReal: 😈 Comment ça c'est pas le bon moment ? Montre nous ce que tu fais quand-même",
+    "NotBeReal: 😱 Tu devineras jamais ce que les gens font en même temps que toi ! (je suis pas du tout putaclic)"
 ]
