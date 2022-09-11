@@ -8,7 +8,7 @@ import time
 # vars for prog
 debug = False
 minDays = 2
-maxDays = 4
+maxDays = 3
 lastTweet = ""
 
 # try to connect with tweepy api
@@ -47,7 +47,7 @@ def nb_days() -> int:
 def random_day(addedList) -> int:
     if(debug): print("Picking a random day")
     nb = randrange(1, 8)
-    while(nb in addedList):
+    while(nb in addedList or nb-1 in addedList or nb+1 in addedList):
         nb = randrange(1, 8)
     return nb
 
