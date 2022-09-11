@@ -26,16 +26,6 @@ def connect_api():
         print("Error in tweepy")
         exit(2)
 
-# generate a random moment in day
-def random_moment() -> str:
-    hour = randrange(0, 23)     # random hour
-    minute = randrange(0, 59)   # random minute
-    if(hour) < 10: hour = '0' + str(hour)       # store in str and add '0' if < 10
-    else: hour = str(hour)
-    if(minute) < 10: minute = '0' + str(minute) # store in str and add '0' if < 10
-    else: minute = str(minute)
-    return hour + ":" + minute  # return in format '00:00'
-
 # generate random number of tweets in the day
 def nb_tweets() -> int:
     return randrange(minTweets, maxTweets)
@@ -50,6 +40,16 @@ def make_a_tweet():
     lastTweet = tweet                               # store new tweet in lastTweet
     if(debug): print("Tweet: " + tweet)
     api.update_status(tweet)                        # tweet a tweet
+
+# generate a random moment in day
+def random_moment() -> str:
+    hour = randrange(0, 23)     # random hour
+    minute = randrange(0, 59)   # random minute
+    if(hour) < 10: hour = '0' + str(hour)       # store in str and add '0' if < 10
+    else: hour = str(hour)
+    if(minute) < 10: minute = '0' + str(minute) # store in str and add '0' if < 10
+    else: minute = str(minute)
+    return hour + ":" + minute  # return in format '00:00'
 
 # generate a random number of jobs
 def create_moments():
@@ -66,6 +66,8 @@ if(__name__ == "__main__"):
         currentTime = time.strftime("%H:%M")    # get current time
         if(currentTime in moments):             # if it's time to do a tweet
             make_a_tweet()                      # do a tweet
-        if(currentTime == "00:00"):             # if it's midnight
+            time.sleep(30*60)                   # sleep for 30 minutes so there aren't too much tweets too fast
+        elif(currentTime == "00:00"):           # if it's midnight
             create_moments()                    # delete and recreate random schedule jobs
-        time.sleep(50)                          # sleep for 50 seconds before retrying
+        else:
+            time.sleep(50)                      # sleep for 50 seconds before retrying
