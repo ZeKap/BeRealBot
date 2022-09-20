@@ -10,6 +10,8 @@ debug = False
 minDays = 2
 maxDays = 3
 lastTweet = ""
+minHour = 10
+maxHour = 23
 
 # try to connect with tweepy api
 def connect_api():
@@ -54,7 +56,7 @@ def random_day(addedList) -> int:
 # generate a random moment in day
 def random_hour() -> str:
     if(debug): print("Generating random moment")
-    hour = randrange(0, 24)                     # random hour
+    hour = randrange(minHour, maxHour+1)                     # random hour
     minute = randrange(0, 60)                   # random minute
     if(hour) < 10: hour = '0' + str(hour)       # store hour in str and add '0' if < 10
     else: hour = str(hour)
