@@ -75,39 +75,57 @@ def create_days():
     if(debug): print(days)
     return days
 
+def waitEndOfDay()
+  time.sleep(((23-int(time.strftime("%H")))*60*60)+((59-int(time.strftime("%M")))*60)+(59-int(time.strftime("%S"))))
+  while(time.strftime("%H:%M") != "00:00"):   
+    if(debug): print("sleep until end of day")
+    time.sleep(1)    
+
+def fewDays():
+  days = create_days()                              # create list of days to tweet
+  tweeted = False
+  while True:
+    if(debug): print("Starting loop")
+    currentDay = int(time.strftime("%u"))           # get current day
+    if(currentDay in days):                         # if it's a day to tweet
+        hour = random_hour()                        # take a random moment in day
+        if(debug): print(hour)
+        while(not tweeted):                         # while there was no tweet
+            if(debug): print("current day is in days: "+time.strftime("%u"))
+            #use while instead
+            while(time.strftime("%H:%M") != hour):  # check if it's time to do a tweet
+                if(debug): print("not time to do a tweet")
+                time.sleep(50)                      # sleep for 50 seconds before retrying
+            if(debug): print("time to tweet")
+            make_a_tweet()                          # do a tweet
+            tweeted = True
+            # sleep until end of day
+            if(debug): print("sleep until end of day")
+            time.sleep(((23-int(time.strftime("%H")))*60*60)+((59-int(time.strftime("%M")))*60)+(58-int(time.strftime("%S"))))
+            while(time.strftime("%H:%M") != "00:00"):# while it's not the end of the day
+                if(debug): print("sleep until end of day but precise")
+                time.sleep(1)                       # sleep for 1 second before checking hour
+            currentDay = int(time.strftime("%u"))   # get current day
+        tweeted = False
+        if(currentDay == 0):                        # if it's the end of week (it dont block making a tweet because this test is after)
+            if(debug): print("end of week, create a new list")
+            days = create_days()                    # regenerate list of days to tweet
+    else:
+        waitEndOfDay()                           # sleep for 1 second before checking hour
+
+
+def tweetEveryDay():
+  while True:
+    tweeted = False
+    hour = random_hour()
+    while not tweeted:
+      if(time.strftime("%H:%M") != hour):
+        make_a_tweet()
+        tweeted = True
+      else:
+        time.sleep(50)
+    waitEndOfDay()
+
 if(__name__ == "__main__"):
     connect_api()                                       # connect to tweepy API
-    days = create_days()                                # create list of days to tweet
-    tweeted = False
-    while True:
-        if(debug): print("Starting loop")
-        currentDay = int(time.strftime("%u"))           # get current day
-        if(currentDay in days):                         # if it's a day to tweet
-            hour = random_hour()                        # take a random moment in day
-            if(debug): print(hour)
-            while(not tweeted):                         # while there was no tweet
-                if(debug): print("current day is in days: "+time.strftime("%u"))
-                #use while instead
-                while(time.strftime("%H:%M") != hour):  # check if it's time to do a tweet
-                    if(debug): print("not time to do a tweet")
-                    time.sleep(50)                      # sleep for 50 seconds before retrying
-                if(debug): print("time to tweet")
-                make_a_tweet()                          # do a tweet
-                tweeted = True
-                # sleep until end of day
-                if(debug): print("sleep until end of day")
-                time.sleep(((23-int(time.strftime("%H")))*60*60)+((59-int(time.strftime("%M")))*60)+(58-int(time.strftime("%S"))))
-                while(time.strftime("%H:%M") != "00:00"):# while it's not the end of the day
-                    if(debug): print("sleep until end of day but precise")
-                    time.sleep(1)                       # sleep for 1 second before checking hour
-                currentDay = int(time.strftime("%u"))   # get current day
-            tweeted = False
-            if(currentDay == 0):                        # if it's the end of week (it dont block making a tweet because this test is after)
-                if(debug): print("end of week, create a new list")
-                days = create_days()                    # regenerate list of days to tweet
-        else:
-            if(debug): print("sleep until end of day at the end of prog")
-            time.sleep(((23-int(time.strftime("%H")))*60*60)+((59-int(time.strftime("%M")))*60)+(58-int(time.strftime("%S"))))
-            while(time.strftime("%H:%M") != "00:00"):   
-                if(debug): print("sleep until end of day")
-                time.sleep(1)                           # sleep for 1 second before checking hour
+    tweetEveryDay()
