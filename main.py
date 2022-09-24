@@ -121,7 +121,7 @@ def tweetEveryDay():
     if debug: print(hour)
     while not tweeted:
       if debug: print(time.strftime("%H:%M"))
-      if(time.strftime("%H:%M") != hour):
+      if(time.strftime("%H:%M") == hour):
         if debug: print("it's time")
         make_a_tweet()
         tweeted = True
