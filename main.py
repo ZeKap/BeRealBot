@@ -6,7 +6,7 @@ from random import randrange
 import time
 
 # vars for prog
-debug = False
+debug = True:
 minDays = 2
 maxDays = 3
 lastTweet = ""
@@ -118,12 +118,17 @@ def tweetEveryDay():
   while True:
     tweeted = False
     hour = random_hour()
+    if debug: print(hour)
     while not tweeted:
+      if debug: print(time.strftime("%H:%M"))
       if(time.strftime("%H:%M") != hour):
+        if debug: print("it's time")
         make_a_tweet()
         tweeted = True
       else:
+        if debug: print("it'a not time")
         time.sleep(50)
+    if debug: print("wait the end of day")
     waitEndOfDay()
 
 if(__name__ == "__main__"):
