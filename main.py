@@ -75,7 +75,7 @@ def create_days():
     if(debug): print(days)
     return days
 
-def waitEndOfDay()
+def waitEndOfDay():
   time.sleep(((23-int(time.strftime("%H")))*60*60)+((59-int(time.strftime("%M")))*60)+(59-int(time.strftime("%S"))))
   while(time.strftime("%H:%M") != "00:00"):   
     if(debug): print("sleep until end of day")
