@@ -6,7 +6,7 @@ from random import randrange
 import time
 
 # vars for prog
-debug = True:
+debug = True
 minDays = 2
 maxDays = 3
 lastTweet = ""
