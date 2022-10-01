@@ -126,7 +126,7 @@ def tweetEveryDay():
         make_a_tweet()
         tweeted = True
       else:
-        if debug: print("it'a not time")
+        #if debug: print("it'a not time")
         time.sleep(50)
     if debug: print("wait the end of day")
     waitEndOfDay()
