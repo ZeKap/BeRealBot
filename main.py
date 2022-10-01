@@ -139,6 +139,6 @@ def tweetEveryDay():
     waitEndOfDay()
 
 if(__name__ == "__main__"):
-    logging.log(level=logging.INFO, msg="starting: "+str(time.strftime("%H:%M")))
+    print("starting: "+str(time.strftime("%H:%M")))
     connect_api()                                       # connect to tweepy API
     tweetEveryDay()
