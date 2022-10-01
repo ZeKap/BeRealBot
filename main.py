@@ -30,6 +30,10 @@ def connect_api():
         print("Error in tweepy")
         exit(2)
 
+    global userId # declare global var userId to send DM for debug in twitter
+    userId = api.get_user("zeKap")
+
+
 # tweet a tweet
 def make_a_tweet():
     if debug: logging.log(level=logging.INFO, msg="Tweeting")
@@ -120,6 +124,7 @@ def tweetEveryDay():
   while True:
     tweeted = False
     hour = random_hour()
+    if debug: api.send_direct_message(userId, "Hour for next tweet: " + hour)
     if debug: logging.log(level=logging.INFO, msg=hour)
     while not tweeted:
       if debug: logging.log(level=logging.INFO, msg=time.strftime("%H:%M"))
@@ -138,6 +143,6 @@ def tweetEveryDay():
 
 if(__name__ == "__main__"):
     logging.basicConfig(level=logging.INFO, filename="log.txt")
-    logging.log(level=logging.INFO, msg="test")
+    logging.log(level=logging.INFO, msg="starting: "+str(time.strftime("%H:%M")))
     connect_api()                                       # connect to tweepy API
     tweetEveryDay()
