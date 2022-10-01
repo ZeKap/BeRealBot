@@ -1,5 +1,4 @@
 import tweepy
-import logging
 
 from tokens import apiKey, apiSecret, accessToken, accessSecret
 
@@ -29,8 +28,9 @@ def connect_api():
         print("Error in tweepy")
         exit(2)
 
+    user = api.get_user(screen_name="ze_kap")
     global userId # declare global var userId to send DM for debug in twitter
-    userId = api.get_user("zeKap")
+    userId = user.id_str
 
 
 # tweet a tweet
@@ -42,7 +42,7 @@ def make_a_tweet():
     while(tweet == lastTweet):                      # while the new tweet is the same as the old one
         tweet = tweetsList[randrange(len(tweetsList))]  # take an other tweet
     lastTweet = tweet                               # store new tweet in lastTweet
-    if debug: logging.log(level=logging.INFO, msg="Tweet: " + tweet)
+    if debug: print("Tweet: " + tweet)
     api.update_status(tweet)                        # tweet a tweet
 
 # generate random number of days in the week
@@ -77,7 +77,7 @@ def create_days():
     days.clear()                            # clear the list
     for _ in range(nb_days()):              # add a random number of day
         days.append(random_day(days))       # add a random day to the list without double
-    if debug: logging.log(level=logging.INFO, msg=days)
+    if debug: print(days)
     return days
 
 def waitEndOfDay():
@@ -94,7 +94,7 @@ def fewDays():
     currentDay = int(time.strftime("%u"))           # get current day
     if(currentDay in days):                         # if it's a day to tweet
         hour = random_hour()                        # take a random moment in day
-        if debug: logging.log(level=logging.INFO, msg=hour)
+        if debug: print(hour)
         while(not tweeted):                         # while there was no tweet
             if debug: print("current day is in days: "+time.strftime("%u"))
             #use while instead
@@ -124,9 +124,9 @@ def tweetEveryDay():
     tweeted = False
     hour = random_hour()
     if debug: api.send_direct_message(userId, "Hour for next tweet: " + hour)
-    if debug: logging.log(level=logging.INFO, msg=hour)
+    if debug: print(hour)
     while not tweeted:
-      if debug: logging.log(level=logging.INFO, msg=time.strftime("%H:%M"))
+      if debug: print(time.strftime("%H:%M"))
       if(time.strftime("%H:%M") == hour):
         if debug: print("it's time")
         make_a_tweet()
