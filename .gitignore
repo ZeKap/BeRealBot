@@ -351,3 +351,5 @@ MigrationBackup/
 
 # token files (api keys...)
 tokens*
+#logging files
+log*
